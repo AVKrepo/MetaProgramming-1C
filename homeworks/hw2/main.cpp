@@ -1,9 +1,11 @@
 #include <iostream>
-#include "../../seminars/TypeList/type_list.h"
+#include "linear_hierarchy.h"
 #include "fibonacci_numbers.h"
 
 int main() {
+//    std::cout << FibonacciNumber<92>::value << std::endl;
     std::cout << FibonacciNumber<92>::value << std::endl;
+    GenLinearHierarchy<TypeList<int, float, std::string>, Unit> hierarchy;
     return 0;
 }
 
