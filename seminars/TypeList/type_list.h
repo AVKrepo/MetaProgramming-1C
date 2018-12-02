@@ -186,7 +186,7 @@ struct Sublist<FromIdx, FromIdx, TypeList<Args...>> {
 
 template<size_t FromIdx, size_t ToIdx, typename ...Args>
 struct Sublist<FromIdx, ToIdx, TypeList<Args...>> {
-    static_assert(FromIdx <= ToIdx, "Invalid range");
+//    static_assert(FromIdx <= ToIdx, "Invalid range");
     constexpr static size_t End = std::min(Length<TypeList<Args...>>::value, ToIdx);
     constexpr static size_t Begin = FromIdx % Length<TypeList<Args...>>::value;
     constexpr static bool is_valid = (FromIdx < End);
