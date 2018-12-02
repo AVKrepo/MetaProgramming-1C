@@ -136,7 +136,7 @@ struct PushBack {
 
 template<typename T, typename ...Args>
 struct PushBack<T, TypeList<Args...>> {
-    using type_list = typename Insert<Length<TypeList<Args...>>::value,T, TypeList<Args...>>::type_list;
+    using type_list = typename Insert<Length<TypeList<Args...>>::value, T, TypeList<Args...>>::type_list;
 };
 
 /// RemoveFrom
@@ -184,7 +184,12 @@ struct Sublist<FromIdx, FromIdx, TypeList<Args...>> {
     using type_list = EmptyList;
 };
 
-
-
+template<size_t FromIdx, size_t ToIdx, typename ...Args>
+struct Sublist<FromIdx, ToIdx, TypeList<Args...>> {
+    constexpr static size_t End = std::min(Length<TypeList<Args...>>::value, ToIdx);
+    static_assert(End >= FromIdx, "Invalid range");
+    using type_list = typename PushBack<typename TypeAt<End - 1, TypeList<Args...>>::type, typename Sublist<FromIdx,
+            End - 1, TypeList<Args...>>::type_list>::type_list;
+};
 
 #endif
