@@ -2,6 +2,7 @@
 #define TYPE_LIST_H_
 
 #include <type_traits>
+#include <iostream>
 
 /// TypeList
 struct NullType {
@@ -111,7 +112,7 @@ struct Insert {
 
 template<typename T, typename ...Args>
 struct Insert<0, T, TypeList<Args...>> {
-    using type_list = typename AddToBeginning<T, TypeList<Args...>>::type_list ;
+    using type_list = typename AddToBeginning<T, TypeList<Args...>>::type_list;
 };
 
 template<typename T>
@@ -146,12 +147,12 @@ struct RemoveFrom<I, TypeList<Args...>> {
 };
 
 /// Replace
-template <size_t I, typename T, typename TL>
+template<size_t I, typename T, typename TL>
 struct Replace {
     using type_list = NullType;
 };
 
-template <size_t I, typename T, typename... Args>
+template<size_t I, typename T, typename... Args>
 struct Replace<I, T, TypeList<Args...>> {
     using type_list = typename Insert<I, T, typename RemoveFrom<I, TypeList<Args...>>::type_list>::type_list;
 };
