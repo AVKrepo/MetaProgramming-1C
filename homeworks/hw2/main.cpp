@@ -4,7 +4,9 @@
 int main() {
 //    std::cout << FibonacciNumber<92>::value << std::endl;
     std::cout << FibonacciNumber<92>::value << std::endl;
-    GenLinearHierarchy<TypeList<int, float, std::string>, Unit> hierarchy;
+    using list = TypeList<int, char, float, double, float, std::string>;
+    GenLinearHierarchy<list, Unit> linear_hierarchy;
+    GenScatterHierarchy<list, Holder> scatter_hierarchy;
     return 0;
 }
 
