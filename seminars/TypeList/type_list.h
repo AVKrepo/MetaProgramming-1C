@@ -127,6 +127,18 @@ struct Insert<I, T, TypeList<Args...>> {
             I - 1, T, typename TypeList<Args...>::Tail>::type_list>::type_list;
 };
 
+
+/// PushBack
+template<typename T, typename TL>
+struct PushBack {
+    using type_list = NullType;
+};
+
+template<typename T, typename ...Args>
+struct PushBack<T, TypeList<Args...>> {
+    using type_list = typename Insert<Length<TypeList<Args...>>::value,T, TypeList<Args...>>::type_list;
+};
+
 /// RemoveFrom
 template<size_t I, typename TL>
 struct RemoveFrom {
@@ -156,5 +168,23 @@ template<size_t I, typename T, typename... Args>
 struct Replace<I, T, TypeList<Args...>> {
     using type_list = typename Insert<I, T, typename RemoveFrom<I, TypeList<Args...>>::type_list>::type_list;
 };
+
+/// Sublist
+template<size_t FromIdx, size_t ToIdx, typename TL>
+struct Sublist {
+};
+
+template<size_t FromIdx, size_t ToIdx>
+struct Sublist<FromIdx, ToIdx, EmptyList> {
+    using type_list = EmptyList;
+};
+
+template<size_t FromIdx, typename ...Args>
+struct Sublist<FromIdx, FromIdx, TypeList<Args...>> {
+    using type_list = EmptyList;
+};
+
+
+
 
 #endif

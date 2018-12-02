@@ -16,6 +16,10 @@ int main() {
     std::cout << RemoveFrom<0, list>::type_list() << RemoveFrom<1, list>::type_list()
               << RemoveFrom<2, list>::type_list() << std::endl;
     std::cout << Replace<1, float, list>::type_list() << std::endl;
+    std::cout << list() << std::endl;
+    std::cout << PushBack<int, list>::type_list() << std::endl;
+    std::cout << empty_list() << std::endl;
+    std::cout << PushBack<int, empty_list >::type_list() << std::endl;
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }
