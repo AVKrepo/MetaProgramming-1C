@@ -1,6 +1,5 @@
 #include <iostream>
-#include "linear_hierarchy.h"
-#include "fibonacci_numbers.h"
+#include "fibonacci_hierarchy.h"
 
 int main() {
 //    std::cout << FibonacciNumber<92>::value << std::endl;
