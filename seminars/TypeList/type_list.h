@@ -4,6 +4,8 @@
 #include <type_traits>
 #include <iostream>
 
+#include "lazy_conditional.h"
+
 /// TypeList
 struct NullType {
 };
@@ -186,10 +188,15 @@ struct Sublist<FromIdx, FromIdx, TypeList<Args...>> {
 
 template<size_t FromIdx, size_t ToIdx, typename ...Args>
 struct Sublist<FromIdx, ToIdx, TypeList<Args...>> {
+    static_assert(FromIdx <= ToIdx, "Invalid range");
     constexpr static size_t End = std::min(Length<TypeList<Args...>>::value, ToIdx);
-    static_assert(End >= FromIdx, "Invalid range");
-    using type_list = typename PushBack<typename TypeAt<End - 1, TypeList<Args...>>::type, typename Sublist<FromIdx,
-            End - 1, TypeList<Args...>>::type_list>::type_list;
+    constexpr static bool is_valid = (FromIdx < End);
+
+    using type_list = typename LazyConditional<is_valid,
+            Truetypename PushBack<typename TypeAt<End - 1, TypeList<Args...>>::type, typename Sublist<FromIdx,
+                    End - 1, TypeList<Args...>>::type_list>::type_list,
+            EmptyList
+    >::type;
 };
 
 #endif

@@ -21,7 +21,7 @@ int main() {
     std::cout << empty_list() << std::endl;
     std::cout << PushBack<char, empty_list >::type_list() << std::endl;
     std::cout << "Hello, World!" << std::endl;
-    using sublist = Sublist<1, 3, list>::type_list;
+    using sublist = Sublist<3, 6, list>::type_list;
     std::cout << sublist() << std::endl;
     return 0;
 }
