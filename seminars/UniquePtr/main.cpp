@@ -22,14 +22,15 @@ int main() {
     /// Constructors
 //    UniquePtr<SomeClass> ptr2 = UniquePtr<SomeClass>(ptr1); // error!
     UniquePtr<SomeClass> ptr2 = UniquePtr<SomeClass>(std::move(ptr1));
-    assert(ptr1.isNullptr() && !ptr2.isNullptr());
+    assert(!ptr1 && ptr2);
     std::cout << ptr2->getData() << std::endl;
     UniquePtr<SomeClass> ptr3 = UniquePtr<SomeClass>();
-    assert(ptr3.isNullptr() && !ptr2.isNullptr());
+    assert(!ptr3 && ptr2);
 //    ptr3 = ptr2; // error!
     ptr3 = std::move(ptr2);
-    assert(!ptr3.isNullptr() && ptr2.isNullptr());
-    std::cout << ptr3->getData() << std::endl;
+    assert(ptr3 && !ptr2);
+    std::cout << ptr3->getData() << " " << ptr3.get()->getData() << std::endl;
+    std::cout << (*ptr3).getData() << std::endl;
     std::cout << "Hello world" << std::endl;
     return 0;
 }
